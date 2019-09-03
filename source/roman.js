@@ -1,49 +1,59 @@
 'use strict';
 
-var arab = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
-var rom = ['I','IV','V','IX','X','XL','L','XC','C','CD','D','CM','M'];
+const base = [
+	{ value: 1000, char: 'M' },
+	{ value: 900, char: 'CM' },
+	{ value: 500, char: 'D' },
+	{ value: 400, char: 'CD' },
+	{ value: 100, char: 'C' },
+	{ value: 90, char: 'XC' },
+	{ value: 50, char: 'L' },
+	{ value: 40, char: 'XL' },
+	{ value: 10, char: 'X' },
+	{ value: 9, char: 'IX' },
+	{ value: 5, char: 'V' },
+	{ value: 4, char: 'IV' },
+	{ value: 1, char: 'I' }
+]
 
-function arabToRoman(number) {
-	if(!number) return '';
+function digitToRoman(number) {
+	if (!number) return '';
 
-	var ret = '';
-	var i = arab.length - 1;
-	while(number > 0) {
-		if(number >= arab[i]) {
-			ret += rom[i];
-			number -= arab[i];
-		} else {
-			i--;
-		}
-	}
-	return ret;
-};
+	return base.reduce((result, currentValue) => {
+        while (number >= currentValue.value) {
+            result += currentValue.char;
+            number -= currentValue.value;
+        }
 
-function romanToArab(str)
-{
+        return result;
+    }, '');
+}
+
+function romanToDigit(str) {
+	if (!(typeof str === "string"))
+		return;
 	str = str.toUpperCase();
 
-	var ret = 0;
-	var i = arab.length - 1;
-	var pos = 0;
-	while(i >= 0 && pos < str.length ) {
-		if(str.substr(pos, rom[i].length) == rom[i]) {
-			ret += arab[i];
-			pos += rom[i].length;
+	let ret = 0;
+	let i = 0;
+	let pos = 0;
+	while (i < base.length && pos < str.length ) {
+		if(str.substr(pos, base[i].char.length) == base[i].char) {
+			ret += base[i].value;
+			pos += base[i].char.length;
 		} else {
-			i--;
+			i++;
 		}
-	
 	}
+	
 	return ret;
-};
+}
 
-const roman = function (value)
-{
-    var number = Number(value);
-    if(isNaN(number)) {
-        return romanToArab(value.toUpperCase());
+const roman = value => {
+    let number = parseInt(value);
+    if (isNaN(number)) {
+		return romanToDigit(value);
     } else {
-        return arabToRoman(number);
-    }
+        return digitToRoman(number);
+	}
 };
