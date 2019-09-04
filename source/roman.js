@@ -43,7 +43,7 @@ function romanToDigit(str) {
 	    }
 	}
 	return  result;
-    }, 0 );
+    }, 0);
 }
 
 const roman = value => {
