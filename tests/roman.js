@@ -37,6 +37,7 @@ QUnit.module('Тестируем функцию roman', function () {
 		assert.strictEqual(roman('1990'), 'MCMXC');
 		assert.strictEqual(roman('2017'), 'MMXVII');
 		assert.strictEqual(roman({}), );
+		assert.strictEqual(roman('  '), 0 );
 	});
 
 	QUnit.test('roman правильно парсит строки с буквами', function (assert) {

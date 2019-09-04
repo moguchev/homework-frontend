@@ -26,17 +26,18 @@ function digitToRoman(number) {
         }
 
         return result;
-    }, '');
+    }, ''); 
 }
 
 function romanToDigit(str) {
-	if (!(typeof str === "string"))
+	if (typeof str !== "string") {
 		return;
+	}
 	str = str.toUpperCase();
 
 	return base.reduce((result, currentValue) => {
-		while (currentValue.char == str.substr(0, currentValue.char.length)) {
-			if (str.length != 0) {
+		while (currentValue.char === str.substr(0, currentValue.char.length)) {
+			if (str.length !== 0) {
 				result +=  currentValue.value;
 				str = str.substr(0 + currentValue.char.length);
 			}
@@ -46,10 +47,10 @@ function romanToDigit(str) {
 }
 
 const roman = value => {
-    let number = parseInt(value);
-    if (isNaN(number)) {
+    const number = parseInt(value, 10);
+    if (Number.isNaN(number)) {
 		return romanToDigit(value);
-    } else {
-        return digitToRoman(number);
 	}
+	
+	return digitToRoman(number);
 };
