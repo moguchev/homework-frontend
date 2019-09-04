@@ -34,19 +34,15 @@ function romanToDigit(str) {
 		return;
 	str = str.toUpperCase();
 
-	let ret = 0;
-	let i = 0;
-	let pos = 0;
-	while (i < base.length && pos < str.length ) {
-		if(str.substr(pos, base[i].char.length) == base[i].char) {
-			ret += base[i].value;
-			pos += base[i].char.length;
-		} else {
-			i++;
+	return base.reduce((result, currentValue) => {
+		while (currentValue.char == str.substr(0, currentValue.char.length)) {
+			if (str.length != 0) {
+				result +=  currentValue.value;
+				str = str.substr(0 + currentValue.char.length);
+			}
 		}
-	}
-	
-	return ret;
+		return  result;
+	}, 0 );
 }
 
 const roman = value => {
