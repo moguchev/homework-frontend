@@ -38,11 +38,11 @@ function romanToDigit(str) {
     return base.reduce((result, currentValue) => {
         while (currentValue.char === str.substr(0, currentValue.char.length)) {
 	    if (str.length !== 0) {
-		result +=  currentValue.value;
+		result += currentValue.value;
 		str = str.substr(0 + currentValue.char.length);
 	    }
 	}
-	return  result;
+	return result;
     }, 0);
 }
 
